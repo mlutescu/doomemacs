@@ -2,11 +2,15 @@
 ;;; lang/org/packages.el
 
 (package! org
-  :recipe (:host github
-           ;; REVIEW: I intentionally avoid git.savannah.gnu.org because of SSL
-           ;;   issues (see #5655), uptime issues, download time, and lack of
-           ;;   shallow clone support.
-           :repo "emacs-straight/org-mode"
+  :recipe  ;;(:host github
+           ;; ;; REVIEW: I intentionally avoid git.savannah.gnu.org because of SSL
+           ;; ;;   issues (see #5655), uptime issues, download time, and lack of
+           ;; ;;   shallow clone support.
+           ;; :repo "emacs-straight/org-mode"
+
+          (:host nil
+           :repo "https://code.tecosaur.net/tec/org-mode"
+           :branch "dev"
            :files (:defaults "etc")
            :depth 1
            ;; HACK: Org has a post-install step that generates org-version.el
@@ -31,7 +35,8 @@
                          (format "(defun org-git-version (&rest _) \"%s-??-%s\")\n"
                                  version (cdr (doom-call-process "git" "rev-parse" "--short" "HEAD")))
                          "(provide 'org-version)\n")))))
-  :pin "8b15a0d0b48a0e3ce09be0d208d74a01743cbbe0")  ; release_9.7.34
+  ;; :pin "8b15a0d0b48a0e3ce09be0d208d74a01743cbbe0"
+  )  ; release_9.7.34
 (package! org-contrib
   :recipe (:host github
            :repo "emacsmirror/org-contrib")
